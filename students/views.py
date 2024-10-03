@@ -4,12 +4,17 @@ from .models import Student
 from .forms import StudentForm
 from django.shortcuts import get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-
+from django.db.models import Q
 def student_list(request):
-    students = Student.objects.all()
+    query = request.GET.get('q')
+    if query:
+        students = Student.objects.filter(
+            Q(first_name__icontains=query) | Q(last_name__icontains=query)
+        )
+    else:
+        students = Student.objects.all()
     context = {'students': students}
     return render(request, 'students/student_list.html', context)
-
 
 
 def student_detail(request, pk):
