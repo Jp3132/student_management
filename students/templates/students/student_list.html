@@ -1,0 +1,20 @@
+<!-- students/templates/students/student_list.html -->
+{% extends 'students/base.html' %}
+
+{% block title %}Student List{% endblock %}
+
+{% block content %}
+<h2>Student List</h2>
+
+<ul>
+    {% for student in students %}
+        <li>
+            <a href="{% url 'student_detail' student.id %}">
+                {{ student.first_name }} {{ student.last_name }}
+            </a>
+        </li>
+    {% empty %}
+        <li>No students found.</li>
+    {% endfor %}
+</ul>
+{% endblock %}
