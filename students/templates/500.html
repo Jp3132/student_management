@@ -1,0 +1,10 @@
+<!-- templates/500.html -->
+{% extends 'students/base.html' %}
+
+{% block title %}Server Error{% endblock %}
+
+{% block content %}
+<h2>Server Error (500)</h2>
+<p>Something went wrong on our end.</p>
+<a href="{% url 'student_list' %}">Return to Home</a>
+{% endblock %}
