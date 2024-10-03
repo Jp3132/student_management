@@ -1,37 +1,38 @@
-<!-- students/templates/students/base.html -->
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Student Management System{% endblock %}</title>
-    {% load static %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
-<body>
-    <header>
+<body class="dark-theme">
+    <header class="header">
         <h1>Student Management System</h1>
-        <!-- students/templates/students/base.html -->
-
         <nav>
-            <ul>
-                <li><a href="{% url 'student_list' %}">Home</a></li>
+            <ul class="nav-links">
+                <li><a href="{% url 'student_list' %}" class="nav-item">Home</a></li>
                 {% if user.is_authenticated %}
-                    <li><a href="{% url 'student_add' %}">Add Student</a></li>
-                    <li><form action="{% url 'logout' %}" method="post" style="display: inline;">
-                        {% csrf_token %}
-                        <button type="submit">Logout</button>
-                    </form></li>
+                    <li><a href="{% url 'student_add' %}" class="nav-item">Add Student</a></li>
+                    <li>
+                        <form action="{% url 'logout' %}" method="post" style="display: inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="nav-item button-logout">Logout</button>
+                        </form>
+                    </li>
                 {% else %}
-                    <li><a href="{% url 'login' %}?next={{ request.path }}">Login</a></li>
+                    <li><a href="{% url 'login' %}?next={{ request.path }}" class="nav-item">Login</a></li>
                 {% endif %}
             </ul>
         </nav>
     </header>
-    <main>
+    
+    <main class="content">
         {% block content %}{% endblock %}
     </main>
-    <footer>
+    
+    <footer class="footer">
         <p>&copy; {{ current_year }} Student Management System</p>
     </footer>
 </body>

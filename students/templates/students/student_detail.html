@@ -1,21 +1,25 @@
-<!-- students/templates/students/student_detail.html -->
 {% extends 'students/base.html' %}
 
 {% block title %}Student Detail{% endblock %}
 
 {% block content %}
-<h2>{{ student.first_name }} {{ student.last_name }}</h2>
+<div class="student-detail-container">
+    <div class="student-detail">
+        <h2>{{ student.first_name }} {{ student.last_name }}</h2>
 
-<ul>
-    <li><strong>Email:</strong> {{ student.email }}</li>
-    <li><strong>Date of Birth:</strong> {{ student.date_of_birth }}</li>
-    <li><strong>Enrollment Date:</strong> {{ student.enrollment_date }}</li>
-    <li><strong>Grade:</strong> {{ student.grade }}</li>
-</ul>
+        <ul>
+            <li><strong>Email:</strong> {{ student.email }}</li>
+            <li><strong>Date of Birth:</strong> {{ student.date_of_birth }}</li>
+            <li><strong>Enrollment Date:</strong> {{ student.enrollment_date }}</li>
+            <li><strong>Grade:</strong> {{ student.grade }}</li>
+        </ul>
 
-{% if user.is_authenticated %}
-    <a href="{% url 'student_edit' student.pk %}">Edit Student</a>
-{% endif %}
-
-<a href="{% url 'student_list' %}">Back to Student List</a>
+        <div class="student-detail-actions">
+            {% if user.is_authenticated %}
+                <a href="{% url 'student_edit' student.pk %}">Edit Student</a>
+            {% endif %}
+            <a href="{% url 'student_list' %}">Back to Student List</a>
+        </div>
+    </div>
+</div>
 {% endblock %}

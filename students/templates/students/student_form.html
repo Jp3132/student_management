@@ -1,25 +1,42 @@
-<!-- students/templates/students/student_form.html -->
 {% extends 'students/base.html' %}
 
-{% block title %}{{ form_title }}{% endblock %}
+{% block title %}Add New Student{% endblock %}
 
 {% block content %}
-<h2>{{ form_title }}</h2>
-
-<form method="POST">
-    {% csrf_token %}
-    {{ form.non_field_errors }}
-    {% for field in form %}
-        <div class="form-group">
-            {{ field.label_tag }}
-            {{ field }}
-            {% if field.errors %}
-                <div class="error">{{ field.errors }}</div>
-            {% endif %}
-        </div>
-    {% endfor %}
-    <button type="submit">Submit</button>
-</form>
-
-<a href="{% url 'student_list' %}">Back to Student List</a>
+<div class="student-form-container">
+    <div class="student-form">
+        <h2>Add New Student</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="first_name">First name:</label>
+                <input type="text" id="first_name" name="first_name" required>
+            </div>
+            <div class="form-group">
+                <label for="last_name">Last name:</label>
+                <input type="text" id="last_name" name="last_name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="date_of_birth">Date of birth:</label>
+                <input type="date" id="date_of_birth" name="date_of_birth" required>
+            </div>
+            <div class="form-group">
+                <label for="enrollment_date">Enrollment date:</label>
+                <input type="date" id="enrollment_date" name="enrollment_date" required>
+            </div>
+            <div class="form-group">
+                <label for="grade">Grade:</label>
+                <input type="number" id="grade" name="grade" min="1" max="12" required>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="submit-button">Submit</button>
+            </div>
+        </form>
+        <a href="{% url 'student_list' %}">Back to Student List</a>
+    </div>
+</div>
 {% endblock %}

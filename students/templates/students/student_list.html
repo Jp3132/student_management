@@ -1,5 +1,3 @@
-<!-- students/templates/students/student_list.html -->
-
 {% extends 'students/base.html' %}
 
 {% block title %}Student List{% endblock %}
@@ -7,36 +5,39 @@
 {% block content %}
 <h2>Student List</h2>
 
-<form method="GET" action="">
-    <input type="text" name="q" placeholder="Search students..." value="{{ query }}">
-    <button type="submit">Search</button>
+<!-- Search Form -->
+<form method="GET" action="" class="search-form">
+    <input type="text" name="q" placeholder="Search students..." value="{{ query }}" class="search-input">
+    <button type="submit" class="search-button">Search</button>
 </form>
 
+<!-- Student List -->
 {% if students %}
-    <ul>
+    <ul class="student-list">
         {% for student in students %}
-            <li>
-                <a href="{% url 'student_detail' student.id %}">
+            <li class="student-item">
+                <a href="{% url 'student_detail' student.id %}" class="student-link">
                     {{ student.first_name }} {{ student.last_name }}
                 </a>
             </li>
         {% endfor %}
     </ul>
 
+    <!-- Pagination -->
     <div class="pagination">
         {% if students.has_previous %}
-            <a href="?page=1{% if query %}&q={{ query }}{% endif %}">First</a>
-            <a href="?page={{ students.previous_page_number }}{% if query %}&q={{ query }}{% endif %}">Previous</a>
+            <a href="?page=1{% if query %}&q={{ query }}{% endif %}" class="pagination-link">First</a>
+            <a href="?page={{ students.previous_page_number }}{% if query %}&q={{ query }}{% endif %}" class="pagination-link">Previous</a>
         {% endif %}
 
-        <span>Page {{ students.number }} of {{ students.paginator.num_pages }}</span>
+        <span class="pagination-info">Page {{ students.number }} of {{ students.paginator.num_pages }}</span>
 
         {% if students.has_next %}
-            <a href="?page={{ students.next_page_number }}{% if query %}&q={{ query }}{% endif %}">Next</a>
-            <a href="?page={{ students.paginator.num_pages }}{% if query %}&q={{ query }}{% endif %}">Last</a>
+            <a href="?page={{ students.next_page_number }}{% if query %}&q={{ query }}{% endif %}" class="pagination-link">Next</a>
+            <a href="?page={{ students.paginator.num_pages }}{% if query %}&q={{ query }}{% endif %}" class="pagination-link">Last</a>
         {% endif %}
     </div>
 {% else %}
-    <p>No students found.</p>
+    <p class="no-students">No students found.</p>
 {% endif %}
 {% endblock %}
