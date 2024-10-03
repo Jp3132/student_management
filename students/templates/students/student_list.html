@@ -1,4 +1,5 @@
 <!-- students/templates/students/student_list.html -->
+
 {% extends 'students/base.html' %}
 
 {% block title %}Student List{% endblock %}
@@ -7,26 +8,35 @@
 <h2>Student List</h2>
 
 <form method="GET" action="">
-    <input type="text" name="q" placeholder="Search students..." value="{{ request.GET.q }}">
+    <input type="text" name="q" placeholder="Search students..." value="{{ query }}">
     <button type="submit">Search</button>
 </form>
 
-<ul>
-    {% for student in students %}
-        <!-- existing code -->
-    {% endfor %}
-</ul>
+{% if students %}
+    <ul>
+        {% for student in students %}
+            <li>
+                <a href="{% url 'student_detail' student.id %}">
+                    {{ student.first_name }} {{ student.last_name }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <div class="pagination">
+        {% if students.has_previous %}
+            <a href="?page=1{% if query %}&q={{ query }}{% endif %}">First</a>
+            <a href="?page={{ students.previous_page_number }}{% if query %}&q={{ query }}{% endif %}">Previous</a>
+        {% endif %}
+
+        <span>Page {{ students.number }} of {{ students.paginator.num_pages }}</span>
+
+        {% if students.has_next %}
+            <a href="?page={{ students.next_page_number }}{% if query %}&q={{ query }}{% endif %}">Next</a>
+            <a href="?page={{ students.paginator.num_pages }}{% if query %}&q={{ query }}{% endif %}">Last</a>
+        {% endif %}
+    </div>
+{% else %}
+    <p>No students found.</p>
+{% endif %}
 {% endblock %}
-<div class="pagination"></div>
-    {% if students.has_previous %}
-        <a href="?page=1&q={{ request.GET.q }}">First</a>
-        <a href="?page={{ students.previous_page_number }}&q={{ request.GET.q }}">Previous</a>
-    {% endif %}
-
-    <span>Page {{ students.number }} of {{ students.paginator.num_pages }}</span>
-
-    {% if students.has_next %}
-        <a href="?page={{ students.next_page_number }}&q={{ request.GET.q }}">Next</a>
-        <a href="?page={{ students.paginator.num_pages }}&q={{ request.GET.q }}">Last</a>
-    {% endif %}
-</div>

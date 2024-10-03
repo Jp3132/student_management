@@ -1,4 +1,5 @@
 <!-- students/templates/students/base.html -->
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,14 +11,19 @@
 <body>
     <header>
         <h1>Student Management System</h1>
+        <!-- students/templates/students/base.html -->
+
         <nav>
             <ul>
                 <li><a href="{% url 'student_list' %}">Home</a></li>
                 {% if user.is_authenticated %}
                     <li><a href="{% url 'student_add' %}">Add Student</a></li>
-                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                    <li><form action="{% url 'logout' %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit">Logout</button>
+                    </form></li>
                 {% else %}
-                    <li><a href="{% url 'login' %}">Login</a></li>
+                    <li><a href="{% url 'login' %}?next={{ request.path }}">Login</a></li>
                 {% endif %}
             </ul>
         </nav>

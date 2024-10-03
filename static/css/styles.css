@@ -1,0 +1,35 @@
+/* static/css/styles.css */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header, footer {
+    background-color: #f5f5f5;
+    padding: 1em;
+    text-align: center;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav li {
+    display: inline;
+    margin: 0 1em;
+}
+
+main {
+    padding: 2em;
+}
+
+.error {
+    color: red;
+}
+
+.success {
+    color: green;
+}

@@ -8,20 +8,22 @@ from django.db.models import Q
 from django.core.paginator import Paginator
 
 def student_list(request):
-    query = request.GET.get('q')
+    query = request.GET.get('q', '')
+    student_list = Student.objects.all()
     if query:
-        students_list = Student.objects.filter(
+        student_list = student_list.filter(
             Q(first_name__icontains=query) | Q(last_name__icontains=query)
         )
-    else:
-        students_list = Student.objects.all()
-
-    paginator = Paginator(students_list, 10)  # Show 10 students per page
+    paginator = Paginator(student_list, 10)  # Show 10 students per page
     page_number = request.GET.get('page')
     students = paginator.get_page(page_number)
-
-    context = {'students': students}
+    context = {
+        'students': students,
+        'query': query,
+    }
     return render(request, 'students/student_list.html', context)
+
+
 
 def student_detail(request, pk):
     student = get_object_or_404(Student, pk=pk)
