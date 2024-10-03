@@ -20,6 +20,7 @@ from students import views
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('', include('students.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
     path('', views.student_list, name='student_list'),
     path('student/<int:pk>/', views.student_detail, name='student_detail'),
     path('student/add/', views.student_add, name='student_add'),
