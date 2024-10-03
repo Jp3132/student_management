@@ -1,7 +1,7 @@
 # students/views.py
 from django.shortcuts import render
-from .models import Student
-from .forms import StudentForm
+from students.models import Student
+from students.forms import StudentForm
 from django.shortcuts import get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
@@ -42,7 +42,6 @@ def student_add(request):
         'form_title': 'Add New Student',
     }
     return render(request, 'students/student_form.html', context)
-    pass
 
 @login_required
 def student_edit(request, pk):

@@ -1,19 +1,20 @@
-<!-- students/templates/students/student_detail.html -->
+<!-- students/templates/students/student_list.html -->
 {% extends 'students/base.html' %}
 
-{% block title %}Student Detail{% endblock %}
+{% block title %}Student List{% endblock %}
 
 {% block content %}
-<h2>{{ student.first_name }} {{ student.last_name }}</h2>
+<h2>Student List</h2>
 
-<p><strong>Email:</strong> {{ student.email }}</p>
-<p><strong>Date of Birth:</strong> {{ student.date_of_birth }}</p>
-<p><strong>Enrollment Date:</strong> {{ student.enrollment_date }}</p>
-<p><strong>Grade:</strong> {{ student.grade }}</p>
-
-{% if user.is_authenticated %}
-    <a href="{% url 'student_edit' student.id %}">Edit Student</a>
-{% endif %}
-
-<a href="{% url 'student_list' %}">Back to Student List</a>
+<ul>
+    {% for student in students %}
+        <li>
+            <a href="{% url 'student_detail' student.id %}">
+                {{ student.first_name }} {{ student.last_name }}
+            </a>
+        </li>
+    {% empty %}
+        <li>No students found.</li>
+    {% endfor %}
+</ul>
 {% endblock %}
