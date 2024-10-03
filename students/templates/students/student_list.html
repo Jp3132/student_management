@@ -17,3 +17,16 @@
     {% endfor %}
 </ul>
 {% endblock %}
+<div class="pagination"></div>
+    {% if students.has_previous %}
+        <a href="?page=1&q={{ request.GET.q }}">First</a>
+        <a href="?page={{ students.previous_page_number }}&q={{ request.GET.q }}">Previous</a>
+    {% endif %}
+
+    <span>Page {{ students.number }} of {{ students.paginator.num_pages }}</span>
+
+    {% if students.has_next %}
+        <a href="?page={{ students.next_page_number }}&q={{ request.GET.q }}">Next</a>
+        <a href="?page={{ students.paginator.num_pages }}&q={{ request.GET.q }}">Last</a>
+    {% endif %}
+</div>
