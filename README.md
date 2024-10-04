@@ -19,7 +19,7 @@ The Student Management System is a web application designed to manage student da
 
 1. **Clone the repository:**
     ```bash
-    git clone https://github.com//student_management.git
+    git clone https://github.com/Jp3132/student_management.git
     cd student_management
     ```
 
@@ -73,8 +73,7 @@ The Student Management System is a web application designed to manage student da
                 form = StudentForm()
             return render(request, 'add_student.html', {'form': form})
         ```
-    - **Screenshot:**
-        ![Add Student Form](screenshots/add_student.png)
+    
 
 - **Update Student Information:**
     - **Code Snippet:**
@@ -90,8 +89,7 @@ The Student Management System is a web application designed to manage student da
                 form = StudentForm(instance=student)
             return render(request, 'update_student.html', {'form': form})
         ```
-    - **Screenshot:**
-        ![Update Student Form](screenshots/update_student.png)
+    
 
 - **View Detailed Student Profiles:**
     - **Code Snippet:**
@@ -100,8 +98,7 @@ The Student Management System is a web application designed to manage student da
             student = get_object_or_404(Student, pk=pk)
             return render(request, 'student_detail.html', {'student': student})
         ```
-    - **Screenshot:**
-        ![Student Detail](screenshots/student_detail.png)
+   
 
 ## Contributing
 Contributions are welcome! Please fork the repository and create a pull request with your changes. Ensure that your code follows the project's coding standards and includes appropriate tests.
