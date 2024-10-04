@@ -54,8 +54,58 @@ The Student Management System is a web application designed to manage student da
 - Use the navigation bar to add new students or search for existing ones.
 - Click on a student's name to view detailed information and perform update or delete operations.
 
+## Challenges Encountered
+- **Database Integration:** Initially faced issues with database migrations. Solved by ensuring all models were correctly defined and running `makemigrations` before `migrate`.
+- **User Authentication:** Implementing secure user authentication was challenging. Used Django's built-in authentication system to streamline the process.
+- **Responsive Design:** Ensuring the application was mobile-friendly required extensive CSS adjustments and testing across different devices.
+
+## Feature Implementation
+- **Add New Students:**
+    - **Code Snippet:**
+        ```python
+        def add_student(request):
+            if request.method == 'POST':
+                form = StudentForm(request.POST)
+                if form.is_valid():
+                    form.save()
+                    return redirect('student_list')
+            else:
+                form = StudentForm()
+            return render(request, 'add_student.html', {'form': form})
+        ```
+    - **Screenshot:**
+        ![Add Student Form](screenshots/add_student.png)
+
+- **Update Student Information:**
+    - **Code Snippet:**
+        ```python
+        def update_student(request, pk):
+            student = get_object_or_404(Student, pk=pk)
+            if request.method == 'POST':
+                form = StudentForm(request.POST, instance=student)
+                if form.is_valid():
+                    form.save()
+                    return redirect('student_detail', pk=student.pk)
+            else:
+                form = StudentForm(instance=student)
+            return render(request, 'update_student.html', {'form': form})
+        ```
+    - **Screenshot:**
+        ![Update Student Form](screenshots/update_student.png)
+
+- **View Detailed Student Profiles:**
+    - **Code Snippet:**
+        ```python
+        def student_detail(request, pk):
+            student = get_object_or_404(Student, pk=pk)
+            return render(request, 'student_detail.html', {'student': student})
+        ```
+    - **Screenshot:**
+        ![Student Detail](screenshots/student_detail.png)
+
 ## Contributing
 Contributions are welcome! Please fork the repository and create a pull request with your changes. Ensure that your code follows the project's coding standards and includes appropriate tests.
 
 ## License
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+
